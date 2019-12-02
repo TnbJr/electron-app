@@ -1,0 +1,180 @@
+/*********************************************************/
+/* Component: Text Input */
+
+/* Fancy mixin for easily creating add-ons */
+
+%text-input-add-on {
+  position: absolute;
+  top: 1px;
+  z-index: 3; // stay on top of fields that need higher z-index when in focus
+  line-height: $inputs--standard-height;
+  @extend %label-text;
+}
+
+@mixin text-input-add-on($left-text: '', $left-size: 20px, $right-text: '', $right-size: 20px) {
+  @if $left-text != '' {
+    &:before {
+      @extend %text-input-add-on;
+      content: $left-text;
+      left: 7px;
+
+      @if str-length($left-text) == 1 {
+        font-size: $ms-1;
+      }
+    }
+
+    input {
+      padding-left: $left-size;
+    }
+  }
+
+  @if $right-text != '' {
+    &:after {
+      @extend %text-input-add-on;
+      content: $right-text;
+      right: 7px;
+
+      @if str-length($right-text) == 1 {
+        font-size: $ms-1;
+      }
+    }
+
+    input {
+      padding-right: $right-size;
+    }
+  }
+}
+
+$text-input--mod-tiny-width: 60px;
+$text-input--mod-small-width: 100px;
+$text-input--default-width: 200px;
+$text-input--mod-long-width: 500px;
+
+.text-input {
+  background-color: green;
+  position: relative;
+  display: inline-block;
+  min-width: $text-input--mod-tiny-width;
+
+  &.disabled {
+    @extend %input-disabled-cursor-style;
+  }
+
+  input {
+    @extend %input-style;
+    @extend %input-text;
+    @extend %focus-style;
+
+    height: $inputs--standard-height;
+    width: 100%;
+
+    &:focus {
+      background: #fff;
+    }
+
+    &:disabled {
+      @extend %input-disabled-style;
+    }
+  }
+
+  /* Size options */
+
+  // default
+  width: 100%;
+  max-width: $text-input--default-width; // for responsiveness
+
+  &.mod-tiny {
+    max-width: $text-input--mod-tiny-width; // for responsiveness
+  }
+
+  &.mod-small {
+    max-width: $text-input--mod-small-width; // for responsiveness
+  }
+
+  &.mod-long {
+    max-width: $text-input--mod-long-width; // for responsiveness
+  }
+
+  &.mod-stretch {
+    display: block;
+    max-width: none;
+  }
+
+  &.mod-big {
+    input {
+      @extend %mod-big-input-style;
+      @extend %mod-big-input-text;
+      height: $inputs--big--standard-height;
+    }
+  }
+
+  /* Add-on labels */
+
+  &.mod-dollar-amount {
+    @include text-input-add-on($left-text: '$');
+  }
+
+  &.mod-percentage {
+    @include text-input-add-on($right-text: '%');
+  }
+
+  &.mod-month {
+    @include text-input-add-on($right-text: 'months', $right-size: 60px);
+  }
+
+  &.mod-year {
+    @include text-input-add-on($right-text: 'years', $right-size: 50px);
+  }
+
+  &.mod-sq-ft {
+    @include text-input-add-on($right-text: 'sq ft', $right-size: 53px);
+  }
+
+  &.mod-search {
+    @include text-input-add-on($left-text: '\e911', $left-size: 30px);
+
+    &:before {
+      top: 0;
+      left: 8px;
+      font-family: "icomoon";
+    }
+  }
+}
+
+.fonts-not-loaded {
+  .text-input {
+    input {
+      font-family: $fallback-typeface;
+    }
+
+    &.mod-dollar-amount,
+    &.mod-percentage,
+    &.mod-month,
+    &.mod-year,
+    &.mod-sq-ft,
+    &.mod-search {
+      &:before,
+      &:after {
+        @extend %label-text-fallback-font;
+      }
+    }
+  }
+}
+
+// make size mods maintain a stable width in a table context
+// otherwise table sizing algorithms will force text field to shrink, rendering size mods meaningless
+.interactive-table .text-input {
+  min-width: $text-input--default-width;
+
+  &.mod-tiny {
+    min-width: $text-input--mod-tiny-width;
+  }
+
+  &.mod-small {
+    min-width: $text-input--mod-small-width;
+  }
+
+  &.mod-long {
+    min-width: $text-input--mod-long-width;
+  }
+}

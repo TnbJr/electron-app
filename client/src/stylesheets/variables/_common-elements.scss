@@ -1,0 +1,189 @@
+/*********************************************************/
+/* Common Style Elements - reused by components that have visual similarities */
+
+/*********************************************************/
+/* Focus Style (for form elements) */
+
+$focus-box-shadow: 0px 0px 3px 2px $blue;
+$focus-transition: box-shadow .25s;
+
+%focus-style {
+  transition: $focus-transition;
+
+  &:focus,
+  &.focused,
+  &.is-focused { // thanks, React
+    box-shadow: $focus-box-shadow;
+    outline: none;
+  }
+}
+
+/*********************************************************/
+/* Max-Width Content Wrapper */
+
+$wrapper--horizontal-padding: $spacing--medium;
+
+@mixin wrapper($width: $max-width) {
+  max-width: $width;
+  margin: 0 auto;
+  padding: 0 $wrapper--horizontal-padding;
+}
+
+/*********************************************************/
+/* Fancy scrollbars */
+
+%fancy-scrollbars {
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+    height: 8px;
+    background: $gray-extra-extra-light;
+    border: 1px solid $line-color;
+
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray;
+  }
+}
+
+/*********************************************************/
+/* White Box */
+
+$white-box--padding: $medium-spacing;
+$white-box--box-shadow: 0px 1px 3px rgba($shadow-color, .2);
+$white-box--active-box-shadow: 0px 0px 5px 1px rgba($shadow-color, .7);
+
+%white-box {
+  box-shadow: $white-box--box-shadow;
+  position: relative;
+  background: #fff;
+
+  &.active {
+    box-shadow: $white-box--active-box-shadow;
+  }
+}
+
+%white-box-with-border {
+  @extend %white-box;
+  border: $border-standard;
+}
+
+%white-box-title-bar {
+  padding: $white-box--padding;
+  padding-bottom: 0;
+}
+
+%white-box-title-text {
+  font-size: $ms2;
+  color: $default-text-color;
+}
+
+%white-box-title {
+  @extend %white-box-title-text;
+  margin-bottom: 0;
+  padding-bottom: $spacing--small;
+  border-bottom: 1px solid $line-color;
+}
+
+%white-box-title-with-fallback-font {
+  font-size: $ms2 * $fallback-font-all-caps-title-font-size-multiplier;
+  letter-spacing: $fallback-font-all-caps-title-letter-spacing;
+}
+
+%white-box-content {
+  padding: $white-box--padding;
+  @extend %fancy-scrollbars;
+  overflow-x: auto;
+
+  > *:not(:last-child) {
+    margin-bottom: $medium-spacing;
+  }
+}
+
+/*********************************************************/
+/* clearfix */
+
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }  
+}
+
+/*********************************************************/
+/* close button shared styles and positioning */
+
+%close-button {
+  @extend %tiny-label-text-style;
+  position: absolute;
+  top: .25rem;
+  right: .25rem;
+  display: block;
+  padding: .5rem;
+  color: $gray;
+
+  &:hover {
+    color: $gray-dark;
+  }
+
+  .icon {
+    font-size: $ms-3;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+}
+
+/*********************************************************/
+/* Message Box Styles */
+
+$message-box--border-style: 2px solid;
+$message-box--title-color: $purple;
+$message-box--red--title-color: $red;
+$message-box--yellow--title-color: $yellow-dark;
+$message-box--blue--title-color: $blue;
+
+%message-box {
+  background-color: $gray-extra-extra-light;
+  border-left: $message-box--border-style $blue;
+}
+
+%message-box--red {
+  background-color: $red-light;
+  border-left-color: $red;
+}
+
+%message-box--yellow {
+  background-color: $yellow-light;
+  border-left-color: $yellow-dark;
+}
+
+%message-box--blue {
+  background-color: $blue-light;
+  border-left-color: $blue;
+}
+
+%message-box--typography {
+  @include responsive-font-sizes(small);
+  @extend %default-list-style;
+
+  ul,
+  ol {
+    margin-left: $default-list-indent;
+  }
+
+  li {
+    margin: .35rem 0;
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: $tiny-spacing;
+  }
+}
+
+%message-box--typography--small {
+  font-size: $ms-2;
+  line-height: 1.25em;
+}

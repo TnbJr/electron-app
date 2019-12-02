@@ -1,0 +1,117 @@
+/*********************************************************/
+/* Switch */
+
+$switch--width: 64px;
+$switch--height: 34px;
+$switch--control-offset: 3px;
+$switch--control-border-width: 2px;
+$switch--tab-size: $switch--height - ($switch--control-offset + $switch--control-border-width)*2;
+
+$switch--background-color-on: $green;
+$switch--background-color-off: $gray-extra-light;
+
+.switch {
+  display: inline-block;
+  vertical-align: middle;
+
+  &.disabled {
+    @extend %input-disabled-cursor-style;
+  }
+
+  .switch--control-container,
+  .switch--label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.switch--label {
+  @extend %input-text;
+
+  &:first-of-type {
+    margin-right: 8px;
+  }
+
+  &:last-of-type {
+    margin-left: 8px;
+  }
+}
+
+.fonts-not-loaded {
+  .switch--label {
+    @extend %input-text-fallback-font;
+  }
+}
+
+.switch--control-container {
+  position: relative;
+  margin: 1px 0;
+
+  input[type=checkbox] {
+    position: absolute;
+    width: $switch--width;
+    height: $switch--height;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    cursor: pointer;
+    opacity: 0;
+    margin: 0;
+
+    &:disabled {
+      @extend %input-invisible-disabled-style;
+    }
+  }
+
+  input[type=checkbox]:hover ~ .switch--control {
+    background: $gray-light;
+  }
+
+  input[type=checkbox]:checked ~ .switch--control {
+    background: $switch--background-color-on;
+
+    &:after {
+      left: $switch--width - $switch--height + $switch--control-offset;
+    }
+  }
+
+  input[type=checkbox]:disabled {
+    ~ .switch--control {
+      @extend %input-placeholder-disabled-style;
+    }
+  }
+
+  input[type=checkbox]:focus ~ .switch--control {
+    box-shadow: $focus-box-shadow,
+      inset 0px 1px 3px rgba($purple, .25);
+  }
+}
+
+.switch--control {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: $switch--width;
+  height: $switch--height;
+  border-radius: $switch--height / 2;
+  background: $switch--background-color-off;
+  box-shadow: 0px 1px 3px rgba($purple, .25),
+    inset 0px 1px 3px rgba($purple, .25);
+  border: $switch--control-border-width solid #fff;
+  transition: $focus-transition;
+
+  &:after {
+    content:'';
+    display: block;
+    position: absolute;
+    left: $switch--control-offset;
+    top: 50%;
+    margin-top: -$switch--tab-size / 2;
+    width: $switch--tab-size;
+    height: $switch--tab-size;
+    border-radius: $switch--height / 2;
+    background: #fff;
+    box-shadow: 0px 1px 1px rgba($purple, .75);
+    transition: left .3s;
+  }
+}

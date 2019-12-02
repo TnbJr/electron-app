@@ -1,0 +1,207 @@
+/*********************************************************/
+/* App Header */
+
+$header--link--side-padding: .5rem;
+$header--link--top-bottom-padding: 1rem;
+
+%header--link--underline-style {
+	&:after {
+		content: '';
+		display: block;
+		height: 2px;
+		background: #fff;
+		margin-bottom: -2px;
+	}
+}
+
+%header--link {
+	@extend %tiny-label-text-style;
+	@extend %focus-style;
+	display: inline-block;
+	padding: $header--link--side-padding $header--link--top-bottom-padding;
+	color: #fff;
+	white-space: nowrap;
+
+	.icon {
+		margin-right: 2px;
+		position: relative;
+		top: 1px;
+	}
+
+	&:hover {
+		color: #fff;
+	}
+}
+
+.header {
+    // background:url(../../../static/img/bokeh-purple.jpg);
+    // background: lightblue;
+	background-position: center center;
+	background-size: cover;
+	position: relative;
+}
+
+.app-header {
+	display: flex;
+	align-items: center;
+
+	&.mod-big {
+		height: 60px;
+		// @include wrapper($max-width);
+
+		.app-header--logo {
+			padding: 1rem 1rem 1rem 0;
+			margin-top: 3px;
+
+			svg {
+				height: 24px;
+				width: 142px;
+			}
+		}
+
+		.app-header--primary {
+			border-left: 2px solid rgba(#fff, .35);
+		}
+	}
+
+	&:not(.mod-big) {
+		.app-header--link,
+		.app-header--dropdown-link {
+			padding-left: .65rem;
+			padding-right: .65rem;
+		}
+	}
+}
+
+.app-header--logo {
+	svg {
+		height: 0; // uh this is because default is slim header w/o the logo and you need to add .mod-big to get the regular large header w/ logo
+		width: 0;
+		display: block;
+	}
+}
+
+.app-header--primary {
+	flex: 1;
+}
+
+.app-header--primary,
+.app-header--secondary {
+	display: flex;
+	align-items: baseline;
+}
+
+.app-header--text {
+	display: block;
+	color: #fff;
+	font-size: $ms-1;
+	line-height: $ms-1;
+	padding: 0 $header--link--side-padding;
+}
+
+.fonts-not-loaded {
+	.app-header--text {
+		font-size: $ms-1 * $fallback-font-size-multiplier;
+	}
+}
+
+.app-header--link {
+	@extend %header--link;
+
+	&.active {
+		@extend %header--link--underline-style;
+
+		&:after {
+			background: $blue;
+		}
+	}
+
+	&:hover {
+		@extend %header--link--underline-style;
+	}
+}
+
+/* Header Dropdown Menu */
+
+$header--dropdown--bg-color: $purple-dark;
+
+.app-header--dropdown {
+	position: relative;
+
+	&:hover {
+		.app-header--dropdown-link {
+			background: $header--dropdown--bg-color;
+		}
+
+		.app-header--dropdown-menu {
+			display: block;
+		}
+	}
+}
+
+.app-header--dropdown-link {
+	@extend %header--link;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+
+	// arrow
+	&:after {
+		font-family: 'icomoon';
+		content: "\e912";
+		position: relative;
+		top: -2px;
+		font-size: 5.5px;
+		margin-left: 6px;
+		margin-right: -3px;
+		line-height: 4px;
+	}
+}
+
+.app-header--dropdown-menu {
+	display: none;
+	position: absolute;
+	top: calc(100% - 1px);
+	right: 0;
+	background: $header--dropdown--bg-color;
+	min-width: 135px;
+	border-radius: 3px;
+	border-top-right-radius: 0;
+	padding: .5rem 0;
+	z-index: 3;
+}
+
+.app-header--dropdown-menu-link {
+	@extend %header--link;
+	white-space: nowrap;
+
+	&:hover {
+		@extend %header--link--underline-style;
+	}
+}
+
+.app-header--upgrade {
+	color: #fff;
+	background: rgba($purple-dark, .5);
+	padding: .25rem .5rem;
+	margin: 0 .5rem;
+	font-weight: $font-weight-medium;
+	font-size: $ms-3;
+	border-radius: 4px;
+	white-space: nowrap;
+}
+
+.app-header--upgrade-link {
+	margin: -0.25rem -0.5rem -0.25rem 0.5rem;
+	padding: .25rem .5rem;
+	background: $blue;
+	box-shadow: -1px 1px 3px rgba($purple-dark, .4);
+	color: #fff;
+	@extend %tiny-label-text-style;
+	border-radius: 3px;
+	white-space: nowrap;
+
+	&:hover {
+		background: $blue-dark;
+		color: #fff;
+	}
+}

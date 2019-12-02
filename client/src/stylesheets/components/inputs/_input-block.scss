@@ -1,0 +1,291 @@
+/*********************************************************/
+/* Input Block */
+// wrapper that supports layout for its children, which are mostly going to be .input-block--item */
+
+$input-block--item-spacing: $small-spacing;
+
+// layout override for positioning labels on top instead of the left (used for small screens)
+@mixin input-block--layout--label-on-top {
+  .input-block--item {
+    display: block;
+    position: relative;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .input-block--item--label {
+    display: block;
+    min-height: 0;
+    margin-bottom: $spacing--tiny;
+    
+    label {
+      text-align: left;
+    }
+  }
+
+  .input-block--buttons {
+    margin-left: 0;
+  }
+}
+
+/*********************************************************/
+
+.input-block {
+  > *:not(:last-child) {
+    margin-bottom: $input-block--item-spacing;
+  }
+
+  &.mod-narrow {
+    @include input-block--layout--label-on-top;
+  }
+}
+
+/*********************************************************/
+/* Input Block Item */
+
+$input-block--item--label-width: 7rem; // arbitrary value set by looking at the average length of label text in our app
+$input-block--item--label-spacing: $spacing--small;
+
+.input-block--item {
+  display: flex;
+
+  &:after {
+    content: '';
+    display: block;
+    clear: left;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > * {
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+  }
+}
+
+.input-block--item--label {
+  min-width: $input-block--item--label-width;
+  flex-basis: $input-block--item--label-width;
+  margin-right: $input-block--item--label-spacing;
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  min-height: $inputs--standard-height;
+  justify-content: flex-end;
+
+  label {
+    @extend %label-text;
+    display: block;
+    text-align: right;
+
+    .tooltip--trigger {
+      @extend %reset-link-style;
+    }
+  }
+}
+
+.fonts-not-loaded .input-block--item--label {
+  @extend %label-text-fallback-font;
+}
+
+.input-block--item--content {
+  flex: 1;
+}
+
+.input-block--item--content--container {
+  width: 100%; // needed for ie11 apparently
+
+  > :not(:last-child) {
+    margin-bottom: $spacing--small;
+  }
+}
+
+/*********************************************************/
+/* Input Block Buttons */
+
+.input-block--buttons {
+  margin-left: $input-block--item--label-width + $input-block--item--label-spacing;
+}
+
+/*********************************************************/
+/* "Or" Divider */
+
+.input-block--or-divider {
+  border: none;
+  border-top: 1px solid $line-color;
+  position: relative;
+
+  &:before {
+    content: "OR";
+    position: absolute;
+    background: #fff;
+    display: block;
+    padding: 3px 5px;
+    @extend %label-text;
+    top: -10px;
+    left: 50%;
+    margin-left: -14px;
+  }
+}
+
+.fonts-not-loaded .input-block--or-divider {
+  &:before {
+    @extend %label-text-fallback-font;
+  }
+}
+
+@media screen and (max-width: 1300px) and (min-width: 926px) {
+  .input-block--or-divider {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/*********************************************************/
+/* Input Block Responsive-ness */
+
+/* We're assuming by default that Input Block is in a single column on the page (w/ no other elements beside it taking up horizontal space).
+
+However if it's sharing horizontal space with other elements, then this breakpoint kicks in too late. To remedy this, simply apply the label-on-top layout sooner using more specific selectors (See the Assumptions Section component) */
+
+$input-block--layout--label-on-top-breakpoint: 400px;
+
+@media screen and (max-width: $input-block--layout--label-on-top-breakpoint) {
+  @include input-block--layout--label-on-top;
+}
+
+/*********************************************************/
+/* Validation Item */
+
+.validation-item--message-container {
+  > * {
+    margin-top: $tiny-spacing;
+  }
+}
+
+.validation-item--message {
+  @extend %message-box;
+  @extend %message-box--typography--small;
+  padding: .25rem .45rem .275rem .4rem;
+  
+  // icon
+  &:before {
+    font-family: 'icomoon';
+    float: left;
+    font-size: $ms-2;
+  }
+
+  &.mod-error {
+     @extend %message-box--red;
+     color: $message-box--red--title-color;
+
+    // icon
+    &:before {
+      content: "\e906";
+      font-size: $ms-4;
+      position: relative;
+      top: 1px;
+      left: 1px;
+    }
+  }
+
+  &.mod-warning {
+     @extend %message-box--yellow;
+     color: $message-box--yellow--title-color;
+    
+    // icon
+    &:before {
+      content: "\e900";
+    }
+  }
+
+  &.mod-tip {
+     @extend %message-box--blue;
+     color: $message-box--blue--title-color;
+    
+    // icon
+    &:before {
+      content: "\e90b";
+    }
+  }
+}
+
+.validation-item--message--content {
+  margin-left: 1.1rem;
+  font-weight: $font-weight-medium;
+}
+
+// Special right-aligned validation messages! (only allowed when there's enough horizontal real estate)
+
+$validation-item--right-message-width: 240px;
+
+@media screen and (min-width: $single-column-content--max-width + $validation-item--right-message-width*2) {
+  .validation-item {
+    &.mod-right {
+      display: flex;
+      margin-right: -$validation-item--right-message-width;
+      align-items: center;
+
+      > :first-child {
+        flex: 1;
+      }
+
+      .validation-item--message-container {
+        width: $validation-item--right-message-width;
+      }
+
+      .validation-item--message {
+        display: inline-block;
+        position: relative;
+        margin-left: 12px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        
+        // speech bubble arrow
+        &:after {
+          content: '';
+          width: 0;
+          height: 0;
+          border: 7px solid transparent;
+          border-right: 5px solid $red;
+          position: absolute;
+          right: 100%;
+          top: 50%;
+          margin-top: -7px;
+        }
+
+        &.mod-warning {
+          // speech bubble arrow
+          &:after {
+            border-right: 5px solid $yellow-dark;
+          }
+        }
+      }
+    }
+  }
+
+  // when right-aligned messages are allowed, make background colors of errors dark in modal because it looks better
+  .modal {
+    .validation-item--message {
+      background: $blue;
+
+      p,
+      &:before /* icon */ {
+        color: #fff;
+      }
+
+      &.mod-error {
+        background-color: $red;
+      }
+
+      &.mod-warning {
+        background-color: $yellow-dark;
+      }
+    }
+  }
+}

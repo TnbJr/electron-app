@@ -1,0 +1,28 @@
+/*********************************************************/
+/* Textarea */
+
+.text-area-input {
+  &.disabled {
+    @extend %input-disabled-cursor-style;
+  }
+  
+  textarea {
+    @extend %input-text;
+    @extend %input-style;
+    @extend %focus-style;
+    
+    font-family: $default-font-family;
+    width: 100%;
+    min-height: 100px;
+
+    &:disabled {
+      @extend %input-disabled-style;
+    }
+  }
+}
+
+.fonts-not-loaded {
+  textarea {
+    @extend %input-text-fallback-font;
+  }
+}

@@ -1,0 +1,25 @@
+/* CSS Reset */
+@import "reset.scss";
+
+/* Variables */ 
+@import "variables/breakpoints.scss";
+@import "variables/sizes-and-spacing.scss";
+@import "variables/_colors.scss";
+@import "variables/typographical.scss";
+@import "variables/visual-effects.scss";
+@import "variables/common-elements.scss";
+@import "variables/animations.scss";
+
+
+/* Global default styless */
+// @import "global.scss";
+// @import "components/inputs/all-inputs.scss";
+// @import "components/button.scss";
+// @import "components/content-page.scss";
+// @import "components/data-table.scss";
+// @import "components/footer.scss";
+// @import "components/grid.scss";
+// @import "components/header.scss";
+// @import "components/message-page.scss";
+// @import "components/sidebar.scss";
+@import "main.scss";

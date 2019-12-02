@@ -1,0 +1,10 @@
+/*********************************************************/
+/* Input Group */
+
+.input-group {
+  display: flex;
+
+  > :not(:last-child) {
+    margin-right: $spacing--tiny;
+  }
+}

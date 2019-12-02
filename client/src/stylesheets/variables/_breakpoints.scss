@@ -1,0 +1,19 @@
+/*********************************************************/
+/* Breakpoints, handy for some media queries */
+
+// Note: not all media queries will rely on these. Some breakpoints need to be customized down to the pixel for specific scenarios. These are just here for convenience as an approximation for various device types.
+
+$breakpoint-l: 900px;
+$breakpoint-m: 720px;
+$breakpoint-s: 540px;
+$breakpoint-xs: 420px;
+
+$max-width: 1000px;
+
+/* Convenience mixin (using fancy @contents SASS directive!) to avoid typing all that @media max-width stuff */
+
+@mixin screen-max-width($width) {
+	@media screen and (max-width: $width) {
+		@content;
+	}
+}

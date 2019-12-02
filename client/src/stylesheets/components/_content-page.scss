@@ -1,0 +1,38 @@
+.content-page{
+	flex: 1 1 auto;
+	padding: $spacing--small;
+	background-color: #D9E2E6;
+	height: 100%;
+	overflow: auto;
+	// min-height: 1000px;
+
+	h1{
+		@include responsive-font-sizes(h1);
+		// margin-bottom: $spacing--small;
+	}
+
+	h2 {
+		@include responsive-font-sizes(h2);
+		font-size: 60px;
+		// margin-bottom: $spacing--medium;
+	}
+
+	h3 {
+		@include responsive-font-sizes(h3);
+		// margin-bottom: $spacing--small;
+	}
+
+	h4 {
+		@include responsive-font-sizes(h4);
+		// margin-bottom: $spacing--tiny;
+	}
+
+	h5 {
+		@include responsive-font-sizes(h5);
+		margin-bottom: 0;
+	}
+	.icon__wrapper {
+    	width: 10rem;
+    	margin: $spacing--medium 0;
+	}
+}

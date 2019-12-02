@@ -1,0 +1,214 @@
+/*********************************************************/
+/* Radio Buttons & Checkboxes */
+
+$radio-checkbox--input-size: 24px;
+$radio-button--size: 22px;
+$checkbox--size: 20px;
+
+/* Stuff common to both */
+
+%radio-checkbox-container {
+  position: relative;
+  padding-left: 32px;
+  display: inline-block;
+  margin-top: .45rem;
+  margin-bottom: .45rem;
+  margin-right: $spacing--small;
+
+  &.disabled {
+    @extend %input-disabled-cursor-style;
+  }
+}
+
+%radio-checkbox-placeholder {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  transition: $focus-transition;
+}
+
+%radio-checkbox-input {
+  position: absolute;
+  left: 0;
+  height: $radio-checkbox--input-size;
+  width: $radio-checkbox--input-size;
+  z-index: 2;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+
+  &:disabled {
+    @extend %input-invisible-disabled-style;
+  }
+}
+
+%radio-checkbox-label {
+  @extend %input-text;
+  position: relative;
+  top: 2px;
+
+  &[for] {
+    cursor: pointer;
+  }
+}
+
+%radio-checkbox--label-disabled {
+  color: $inputs--disabled-label-text-color;
+
+  &[for] {
+    pointer-events: none; // prevents label from triggering a :hover state in the associated input
+  }
+}
+
+/*********************************************************/
+/* Radio Button */
+
+.radio-button {
+  @extend %radio-checkbox-container;
+
+  input[type=radio] {
+    @extend %radio-checkbox-input;
+  }
+
+  input[type=radio]:hover ~ .radio-button--placeholder {
+    background: $gray-extra-extra-light;
+  }
+
+  input[type=radio]:checked ~ .radio-button--placeholder {
+    background: $purple;
+    box-shadow: 0px 0px 0px 1px $line-color;
+  }
+
+  input[type=radio]:focus ~ .radio-button--placeholder {
+    box-shadow: $focus-box-shadow;
+  }
+
+  input[type=radio]:disabled {
+    ~ .radio-button--placeholder {
+      @extend %input-placeholder-disabled-style;
+    }
+
+    ~ .radio-button--label {
+      @extend %radio-checkbox--label-disabled;
+      @extend %input-disabled-cursor-style;
+    }
+  }
+}
+
+.radio-button--placeholder {
+  @extend %radio-checkbox-placeholder;
+  width: $radio-button--size;
+  height: $radio-button--size;
+  box-shadow: 0px 0px 0px 1px $line-color;
+  border: 3px solid #fff;
+  border-radius: 12px;
+}
+
+.radio-button--label {
+  @extend %radio-checkbox-label;
+}
+
+.fonts-not-loaded {
+  .radio-button--label {
+    @extend %input-text-fallback-font
+  }
+}
+
+/*********************************************************/
+/* Checkbox */
+
+.checkbox {
+  @extend %radio-checkbox-container;
+
+  input[type=checkbox] {
+    @extend %radio-checkbox-input;
+  }
+
+  input[type=checkbox]:hover ~ .checkbox--placeholder {
+    box-shadow:0px 0px 0px 1px $line-color;
+
+    &:after {
+      display: block;
+      color: $gray-light;
+    }
+  }
+
+  input[type=checkbox]:checked ~ .checkbox--placeholder {
+    background: $purple;
+    box-shadow: none;
+
+    &:after {
+      display: block;
+    }
+  }
+
+  input[type=checkbox]:checked:hover ~ .checkbox--placeholder {
+    .checkbox--checkmark {
+      color: #fff;
+    }
+  }
+
+  input[type=checkbox]:focus ~ .checkbox--placeholder {
+    box-shadow: $focus-box-shadow;
+  }
+
+  input[type=checkbox]:disabled {
+    ~ .checkbox--placeholder {
+      @extend %input-placeholder-disabled-style;
+    }
+
+    ~ .checkbox--label {
+      @extend %radio-checkbox--label-disabled;
+    }
+  }
+}
+
+.checkbox--placeholder {
+  @extend %radio-checkbox-placeholder;
+  width: $checkbox--size;
+  height: $checkbox--size;
+  margin: 2px;
+  padding-top: 5px;
+  padding-left: 3.5px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px 1px $line-color;
+  background: #fff;
+
+  &:after {
+    font-family: "icomoon";
+    content: "\e903";
+    display: none;
+    color: #fff;
+    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    line-height: 10px;
+  }
+}
+
+.checkbox--label {
+  @extend %radio-checkbox-label;
+}
+
+.fonts-not-loaded {
+  .checkbox--label {
+    @extend %input-text-fallback-font
+  }
+}
+
+/*********************************************************/
+/* Radio Button or Checkbox Group */
+
+.radio-button-group,
+.checkbox-group {
+
+  &.mod-stacked {
+    .radio-button,
+    .checkbox {
+      display: block;
+      margin-bottom: .75rem;
+    }
+  }
+
+}

@@ -1,0 +1,122 @@
+/*********************************************************/
+/* Multi Select */
+
+/* Note: This is a React component. Their classname taxonomy doens't match ours, so this may involve a lot of CSS overrides. */
+
+.multi-select {
+  .Select--multi {
+    width: 100%;
+    padding-right: 0;
+
+    &.is-focused {
+      .Select-control {
+        border: none;
+        box-shadow: $focus-box-shadow;
+      }
+    }
+
+    &.is-disabled {
+      &.disabled {
+        @extend %input-disabled-cursor-style;
+      }
+
+      .Select-control {
+        @extend %input-disabled-style;
+      }
+
+      .Select-placeholder {
+        @extend %input-invisible-disabled-style
+      }
+
+      .Select-value-label {
+        @extend %input-disabled-cursor-style;
+      }
+    }
+
+    .Select-value {
+      color: $default-text-color;
+      border: 1px solid $gray;
+      background-color: $gray-extra-light;
+      margin-top: 6px;
+      margin-left: 6px;
+    }
+
+    .Select-value-icon {
+      border-right: 1px solid $gray;
+
+      &:hover {
+        color: $default-text-color;
+        background-color: $gray-light;
+      }
+    }
+  }
+
+  .Select-control {
+    @extend %input-style;
+    @extend %input-text;
+    padding: inherit;
+    transition: $focus-transition;
+    height: $inputs--standard-height;
+  }
+
+  .Select-input input {
+    @extend %input-text;
+  }
+
+  .Select-placeholder {
+    @extend %input-text;
+    color: $gray;
+    line-height: $inputs--standard-height;
+    cursor: pointer;
+  }
+
+  .Select-menu-outer {
+    border: 1px solid $line-color;
+    box-shadow: 0px 1px 4px rgba($shadow-color, .25);
+    padding: .5rem 0;
+    margin-top: -1px;
+    margin-bottom: $spacing--large; // if menu opens out at the bottom of a page, this gives it some space away from the edge of the page
+    padding: 0;
+  }
+
+  .Select-option {
+    @extend %input-text;
+
+    &.is-focused {
+      color: $default-text-color;
+      background-color: $gray-extra-extra-light;
+    }
+  }
+
+  .Select-clear-zone {
+    color: $gray;
+
+    &:hover {
+      color: $red;
+    }
+  }
+
+  .Select-arrow-zone {
+    &:hover {
+      .Select-arrow {
+        border-top-color: $gray-dark;
+      }
+    }
+  }
+
+  .Select-arrow {
+    margin-top: 2px;
+    border-top-color: $gray;
+  }
+}
+
+.fonts-not-loaded {
+  .multi-select {
+    .Select-control,
+    .Select-input input,
+    .Select-placeholder,
+    .Select-option {
+      @extend %input-text-fallback-font;
+    }
+  }
+}

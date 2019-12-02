@@ -1,0 +1,42 @@
+$inputs--disabled-label-text-color: darken($gray-dark, 5%);
+
+$inputs--padding: 8px 8px 7px 8px;
+$inputs--standard-height: $element-height--standard;
+
+$inputs--big--padding: 8px 12px 7px 12px;
+$inputs--big--standard-height: $element-height--big;
+
+%input-style {
+  box-shadow: 0px 0px 0px 1px $line-color,
+    inset 0px 1px 3px rgba($purple, .15);
+  background: #fff;
+  border-radius: 2px;
+  padding: $inputs--padding;
+  border: none;
+  -webkit-appearance: none;
+}
+
+%input-disabled-cursor-style {
+  cursor: not-allowed;
+}
+
+%input-disabled-style {
+  background: $gray-extra-extra-extra-light;
+  box-shadow: none;
+  @extend %input-disabled-cursor-style; // repetitive, but needed to override chrome user-agent stylesheet of cursor: auto on inputs
+}
+
+// Next 2 placeholders are for custom-styled inputs that override browser defaults (such as dropdown menus, radio buttons, etc.)
+
+// this handles the invisible <input> that overlays the visible placeholder
+%input-invisible-disabled-style {
+  pointer-events: none; // conveniently disables hover as well as clicks, so we don't have to write :hover CSS for the disabled state
+}
+
+%input-placeholder-disabled-style {
+  opacity: .5;
+}
+
+%mod-big-input-style {
+  padding: $inputs--big--padding;
+}

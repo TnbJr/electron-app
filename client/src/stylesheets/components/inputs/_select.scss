@@ -1,0 +1,120 @@
+/*********************************************************/
+/* Select Dropdown */
+
+$select--arrow-space-width: 20px;
+$select--placeholder-background-color: $gray-extra-extra-extra-light;
+
+.select {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: $select--arrow-space-width; // extra space for the arrow
+
+  &.disabled {
+    @extend %input-disabled-cursor-style;
+  }
+
+  select {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    padding: $inputs--padding;
+    padding-right: 20px;
+    height: $inputs--standard-height;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-right: -20px; // cover the arrow part
+    @extend %input-text;
+    font-family: $default-font-family;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      @extend %input-invisible-disabled-style;
+      color: $inputs--disabled-label-text-color;
+    }
+    
+    // ie11 - hide native select arrow
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  select:hover ~ .select--placeholder {
+    background-color: $gray-extra-extra-light;
+
+    &:after {
+      color: $gray-dark;
+    }
+  }
+
+  select:focus ~ .select--placeholder {
+    box-shadow: $focus-box-shadow;
+  }
+
+  select:disabled {
+    ~ .select--placeholder {
+      @extend %input-placeholder-disabled-style;
+    }
+  }
+}
+
+.fonts-not-loaded {
+  .select {
+    select {
+      @extend %input-text-fallback-font;
+    }
+  }
+}
+
+.select--placeholder {
+  @extend %input-style;
+  transition: $focus-transition;
+  background: $select--placeholder-background-color;
+  box-shadow: 0px 1px 3px rgba($purple, .15),
+    0px 0px 0px 1px $line-color;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  &:after {
+    font-family: 'icomoon';
+    content: "\e912";
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    color: $gray;
+    font-size: 7.5px;
+    line-height: $inputs--standard-height;
+  }
+}
+
+/* For IE11 only */
+
+@media all and (-ms-high-contrast: active) {  
+  /* Remove purple highlight in HC mode */  
+  .select select:focus::-ms-value{
+    background-color: transparent;  /*make the select background transparent in ie */
+    color: $input-text-color;
+  }
+}
+
+@media all and (-ms-high-contrast: none) {  
+  /* Remove blue highlight in Normal mode*/  
+  .select select:focus::-ms-value{
+    background-color: transparent;
+    color: $input-text-color;
+  }
+}

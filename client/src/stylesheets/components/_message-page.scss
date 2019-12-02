@@ -1,0 +1,159 @@
+/************************************************/
+/* Content Area */
+
+$message-page--box-width: 400px;
+
+.message-page {
+	background-image: url('../static/img/big-apple-bg.jpg');
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  // min-height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-page--bg {
+  background-color: rgba(238, 242, 245, .7);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.message-page--header {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  color: #323247;
+  z-index: 100;
+  h1{
+		@include responsive-font-sizes(h1);
+		margin-bottom: $spacing--small;
+	}
+
+	h2 {
+		@include responsive-font-sizes(h2);
+		margin-bottom: $spacing--medium;
+	}
+
+	h3 {
+		@include responsive-font-sizes(h3);
+		margin-bottom: $spacing--small;
+	}
+
+	h4 {
+		@include responsive-font-sizes(h4);
+		margin-bottom: $spacing--tiny;
+	}
+
+	h5.page__heading {
+		@include responsive-font-sizes(h5);
+		margin-bottom: 0;
+	}
+}
+
+.message-page--logo {
+	margin-top: $spacing--small;
+	width: 210px;
+	display: inline-block;
+}
+
+.message-page--main {
+  padding: 0rem 1rem;
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  flex: 1;
+  
+}
+
+/* Small white box centered in content */
+.message-page--content {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 3px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: $message-page--box-width;
+  margin-left: auto;
+  margin-right: auto;
+  h1{
+		@include responsive-font-sizes(h1);
+		margin-bottom: $spacing--small;
+	}
+
+	h2 {
+		@include responsive-font-sizes(h2);
+		margin-bottom: $spacing--medium;
+	}
+
+	h3 {
+		@include responsive-font-sizes(h3);
+		margin-bottom: $spacing--small;
+	}
+
+	h4 {
+		@include responsive-font-sizes(h4);
+		margin-bottom: $spacing--tiny;
+	}
+
+	h5.page__heading {
+		@include responsive-font-sizes(h5);
+		margin-bottom: 0;
+	}
+}
+
+/* The title that appears in the small white box */
+.message-page--content--title {
+  @extend %all-caps-heading-text-style;
+  text-align: center;
+  font-size: $ms3;
+  margin-bottom: $spacing--medium;
+}
+
+.message-page--footer {
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+
+  .footer {
+    position: relative;
+    z-index: 2;
+  }
+
+	&:after {
+	  content: '';
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 16em;
+	  @include gradient-fade($purple-extra-dark, up);
+	}
+}
+
+/* due to an IE11 bug that incorrectly renders min-height when the element is a flexbox, we won't use flexbox to vertically center content within the message page for IE11 */
+/* https://stackoverflow.com/questions/28627879/flexbox-not-filling-height-in-ie11 */
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .message-page {
+    display: block;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 82px;
+  }
+
+  .message-page--footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}

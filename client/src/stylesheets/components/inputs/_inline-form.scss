@@ -1,0 +1,53 @@
+$inline-form--spacing: $spacing--tiny;
+$inline-form--button-width: 6.5rem;
+$inline-form--button-width-large: 8.75rem;
+
+.inline-form {
+  position: relative;
+  text-align: left;
+  
+  > * {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  &.mod-centered {
+    text-align: center;
+  }
+
+  &.mod-stretch {
+    .inline-form--field {
+      width: calc(100% - #{$inline-form--spacing + $inline-form--button-width});
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .inline-form--button {
+      width: $inline-form--button-width;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      .button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-s) {
+  .inline-form.mod-stretch {
+    // mod-large only applies to non-small screens
+    &.mod-large {
+      .inline-form--field {
+        width: calc(100% - #{$inline-form--spacing + $inline-form--button-width-large});
+      }
+
+      .inline-form--button {
+        width: $inline-form--button-width-large;
+      }
+    }
+  }
+}

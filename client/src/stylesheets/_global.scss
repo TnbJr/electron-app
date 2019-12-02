@@ -1,0 +1,110 @@
+/*********************************************************/
+/* Global default style rules for AR web properties */
+
+/* Q: What's the difference between this and reset.scss? */
+
+/* A: reset.scss is for normalizing rules across all browser families (a.k.a. wiping the slate clean). global.scss on the other hand is for applying a foundational set of styles specific to the Tnb UI. This may seem like nitpicking, but it has a practical consideration: global.scss needs to be imported AFTER all the variable files because it relies on the styles defined in them. But reset.scss needs to be imporyrf BEFORE everything else, otherwise it would... well, reset everything. "But Tina," you say, "There is nothing in the variable files that would compile into actual CSS so separating them wouldn't matter—just put one after the other in one file!" But it does matter. Turns out @extend placeholders are compiled to the location where they are defined, not where they are used. If we included the reset rules after the variable files, the reset would wipe out these placeholder styles. So there you have it—two separate files, two separate purposes! Whew. Tina out. */
+
+// One more thing: Typographical rules for elements like <h1> and <p> are intentionally not included here. See _text-blocks-and-content-headings.scss for an explanation */
+
+/*********************************************************/
+/* Default Body Styles */
+
+
+body {
+    background: #fff;
+    color: $default-text-color;
+    // font-family: $default-font-family;
+    font-family: 'Lato', sans-serif;
+    font-size: $default-font-size;
+    line-height: $default-line-height;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /*********************************************************/
+  /* Apply Fallback Font to Body Level */
+  
+  .fonts-not-loaded {
+    font-family: $fallback-typeface;
+    font-size: $default-font-size * $fallback-font-size-multiplier;
+    line-height: $fallback-font-line-height-multiplier * $default-line-height;
+    letter-spacing: $fallback-font-letter-spacing;
+  
+    // Apply fallback letter-spacing adjustment at the individual element level because browsers don't re-calculate the letterspacing inherited from a parent based on the child context
+  
+    //   #{$all-the-elements} {
+    //   letter-spacing: $fallback-font-letter-spacing;
+    // }
+  
+    strong {
+      letter-spacing: $fallback-font-bold-letter-spacing;
+    }
+  
+    em {
+      letter-spacing: $fallback-font-italic-letter-spacing;
+    }
+  }
+  
+  /*********************************************************/
+  /* When working with large font families w/ a lot of different weights, we want to be more precise about the "degree" of bold we want */
+  
+  strong {
+    font-weight: $font-weight-bold;
+  }
+  
+  /*********************************************************/
+  /* Code! */
+  // Why is this being defined in the defaults file? Because all code everywhere should look like code, regardless of context
+  
+  code {
+    font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+    font-size: .95em; // adjust size so it doesn't seem so huge next to Brandon
+    -webkit-font-smoothing: auto;
+  }
+  
+  /*********************************************************/
+  
+  a {
+    cursor: pointer; // Force hand-style cursor (b/c in the absence of a href property, browser uses regular arrow cursor)
+    // @extend %default-link-style;
+  
+    &[disabled] {
+        cursor: not-allowed;
+    }
+  }
+  
+  /*********************************************************/
+  /* Make padding go *inside* the width/height of a block level element */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  h1{
+		@include responsive-font-sizes(h1);
+		// margin-bottom: $spacing--small;
+	}
+
+	h2 {
+		@include responsive-font-sizes(h2);
+		// font-size: 60px;
+		// margin-bottom: $spacing--medium;
+	}
+
+	h3 {
+		@include responsive-font-sizes(h3);
+		// margin-bottom: $spacing--small;
+	}
+
+	h4 {
+		@include responsive-font-sizes(h4);
+		// margin-bottom: $spacing--tiny;
+	}
+
+	h5 {
+		@include responsive-font-sizes(h5);
+		// margin-bottom: 0;
+	}
+  

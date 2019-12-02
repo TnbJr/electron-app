@@ -1,0 +1,126 @@
+/*********************************************************/
+/* Visual Effects - gradients, shadows, borders, and the like */
+
+/*********************************************************/
+/* Gradient Fade */
+
+@mixin gradient-fade($color, $direction) {
+  @if $direction == 'down' {
+    background: linear-gradient(to bottom, rgba($color, 1) 0%, rgba($color, 0) 100%);
+  }
+
+  @if $direction == 'up' {
+    background: linear-gradient(to top, rgba($color, 1) 0%, rgba($color, 0) 100%);
+  }
+
+  @if $direction == 'left' {
+    background: linear-gradient(to left, rgba($color, 1) 0%, rgba($color, 0) 100%);
+  }
+
+  @if $direction == 'right' {
+    background: linear-gradient(to right, rgba($color, 1) 0%, rgba($color, 0) 100%);
+  }
+}
+
+/*********************************************************/
+/* Shadows */
+
+$shadow-standard: 0px 1px 2px rgba($shadow-color, .3);
+
+/*********************************************************/
+/* Borders */
+
+$border-standard: 1px solid $line-color;
+
+/*********************************************************/
+/* Edge Shadows */
+
+/* which is a special kind of "shadow" that only appears on one edge,
+unlike the standard box-shadow which goes all the way around an element.
+We fake this with an :after pseudo-element and linear-gradient! */
+
+$edge-shadow--size: 4px;
+$edge-shadow--color: $shadow-color;
+
+@mixin edge-shadow-pseudo-element($side, $position) {
+  display: block;
+  content:'';
+  position: absolute;
+  opacity: .12;
+
+   @if $side == 'left' {
+    width: $edge-shadow--size;
+    height: 100%;
+    top: 0;
+
+    @if $position == 'inset' {
+      left: 0;
+      @include gradient-fade($edge-shadow--color, 'right');
+    }
+    @else {
+      left: -$edge-shadow--size;
+      @include gradient-fade($edge-shadow--color, 'left');
+    }
+  }
+
+  @if $side == 'right' {
+    width: $edge-shadow--size;
+    height: 100%;
+    top: 0;
+
+    @if $position == 'inset' {
+      right: 0;
+      @include gradient-fade($edge-shadow--color, 'left');
+    }
+    @else {
+      right: -$edge-shadow--size;
+      @include gradient-fade($edge-shadow--color, 'right');
+    }
+  }
+
+  @if $side == 'top' {
+    height: $edge-shadow--size;
+    width: 100%;
+    left: 0;
+
+    @if $position == 'inset' {
+      top: 0;
+      @include gradient-fade($edge-shadow--color, 'down');
+    }
+    @else {
+      top: -$edge-shadow--size;
+      @include gradient-fade($edge-shadow--color, 'up');
+    }
+  }
+
+  @if $side == 'bottom' {
+    height: $edge-shadow--size;
+    width: 100%;
+    left: 0;
+
+    @if $position == 'inset' {
+      bottom: 0;
+      @include gradient-fade($edge-shadow--color, 'up');
+    }
+    @else {
+      bottom: -$edge-shadow--size;
+      @include gradient-fade($edge-shadow--color, 'down');
+    }
+  }
+}
+
+@mixin edge-shadow($side, $position:'') {
+  position: relative;
+
+  &:after {
+    @include edge-shadow-pseudo-element($side, $position);
+  }
+}
+
+@mixin edge-shadow2($side, $position:'') {
+  position: relative;
+
+  &:before {
+    @include edge-shadow-pseudo-element($side, $position);
+  }
+}

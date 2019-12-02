@@ -1,0 +1,306 @@
+/*********************************************************/
+/* Typographical Variables */
+
+/* This file defines all  typography-related variables and mixins for use in other SASS files */
+
+// NOTE: To reduce the complexity of cascading styles, we leave typographical styling up to each component. For "text-heavy" pages, styling is handled by _text-blocks-and-content-headings.scss.
+
+/*********************************************************/
+/* Font Stacks */
+
+// define fonts stacks we use
+$brandon: "BrandonText", Roboto, Helvetica, Arial, sans-serif;
+$helvetica: Helvetica, Arial, sans-serif;
+
+// assign font stacks to convenience variables for body and heading type
+$default-font-family: $brandon;
+
+// assign fallback font stack to convenience variable
+// (We use fontfaceobserver.js to substitute a fallback font in case custom fonts fail)
+$fallback-typeface: $helvetica;
+
+/*********************************************************/
+/* Weight Variables */
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+$font-weight-black: 700;
+
+/*********************************************************/
+/* Line Heights */
+
+// Note: These should be left unit-less to enable proper computing of line heights based on context
+// See http://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/ for more info
+
+$default-line-height: 1.2;
+
+$paragraph-line-height: 1.45; // more line spacing makes blocks of text easier to read
+$paragraph-intro-line-height: 1.6; // you need even more if the text is big
+
+/*********************************************************/
+/* Spacing between Paragraphs */
+
+$paragraph-spacing: 1em;
+
+/*********************************************************/
+/* Size Variables */
+
+/* Define modular scale */
+// Generated using http://www.modularscale.com/?1&em&1.125&web&text
+// This is basis of all the default-font-sizes we use (try not to add any more sizes)
+
+$ms10: 3.247rem;
+$ms9: 2.887rem;
+$ms8: 2.566rem;
+$ms7: 2.281rem;
+$ms6: 2.027rem;
+$ms5: 1.802rem;
+$ms4: 1.602rem;
+$ms3: 1.424rem;
+$ms2: 1.266rem;
+$ms1: 1.125rem;
+$ms0b: 1rem; // this needs to be here because there's too big of a gap between $ms1 and $ms0
+$ms0: 0.9375rem; // This is the only value we hand-tweaked, for aesthetic reasons
+$ms-1: 0.889rem;
+$ms-2: 0.79rem;
+$ms-3: 0.702rem;
+$ms-4: 0.624rem;
+$ms-5: 0.5rem;
+
+/* Default font size */
+$default-font-size: $ms0;
+
+/*********************************************************/
+/* Default link style, which gets used by all <a> tags for convenience */
+
+%default-link-style {
+  color: $blue;
+  text-decoration: none;
+  font-weight: $font-weight-medium;
+  @extend %focus-style;
+
+  &:hover,
+  &:focus {
+    color: $blue-dark;
+  }
+}
+
+/* Because sometimes we are using <a> tags for purposes other than a text link */
+%reset-link-style {
+  color: inherit;
+  text-decoration: inherit;
+  font-weight: inherit;
+}
+
+/*********************************************************/
+/* Fallback font adjustments (to make Helvetica look more like Brandon) */
+
+/* line-height adjustment */
+$fallback-font-line-height-multiplier: 1.1;
+
+/* font-size adjustment */
+$fallback-font-size-multiplier: 0.91;
+
+/* letter-spacing adjustment */
+$fallback-font-letter-spacing: 0.033em;
+$fallback-font-italic-letter-spacing: 0em;
+$fallback-font-bold-letter-spacing: 0em;
+$fallback-font-black-letter-spacing: 0.006em;
+
+/* Special adjustments for the Special Text Styles */
+
+// Tiny Label Text Style
+$fallback-font-all-caps-label-font-size-multiplier: 0.967;
+$fallback-font-all-caps-label-letter-spacing: .033em;
+
+// Large Heading Text Style
+$fallback-font-all-caps-title-font-size-multiplier: 0.975;
+$fallback-font-all-caps-title-letter-spacing: .036em;
+
+/*********************************************************/
+/* Define typographical proportions at various screen sizes */
+
+/* Default: > 900px */
+$font-sizes--default: (
+  p:      $ms0b,
+  small:  $ms0,
+  intro:  $ms3,
+  list:   $ms0b,
+  dt:     $ms2,
+  h1:     $ms8,
+  h2:     $ms6,
+  h3:     $ms3,
+  h4:     $ms1,
+  h5:     $ms0
+);
+
+/* Large: 720-900px */
+$font-sizes--large-screen: (
+  p:      $ms0,
+  small:  $ms-1,
+  intro:  $ms2,
+  list:   $ms0,
+  dt:     $ms1,
+  h1:     $ms8,
+  h2:     $ms5,
+  h3:     $ms2,
+  h4:     $ms1,
+  h5:     $ms-1
+);
+
+/* Medium: 540-720px */
+$font-sizes--medium-screen: (
+  p:      $ms0,
+  small:  $ms-1,
+  intro:  $ms2,
+  list:   $ms0,
+  dt:     $ms1,
+  h1:     $ms6,
+  h2:     $ms4,
+  h3:     $ms2,
+  h4:     $ms1,
+  h5:     $ms-1
+);
+
+/* Small: 400-540px */
+$font-sizes--small-screen: (
+  p:      $ms0,
+  small:  $ms-1,
+  intro:  $ms2,
+  list:   $ms0,
+  dt:     $ms0,
+  h1:     $ms6,
+  h2:     $ms4,
+  h3:     $ms2,
+  h4:     $ms1,
+  h5:     $ms-1
+);
+
+/* Small: 400-540px */
+$font-sizes--x-small-screen: (
+  p:      $ms-1,
+  small:  $ms-2,
+  intro:  $ms1,
+  list:   $ms-1,
+  dt:     $ms0,
+  h1:     $ms5,
+  h2:     $ms3,
+  h3:     $ms1,
+  h4:     $ms0,
+  h5:     $ms-2
+);
+
+/*********************************************************/
+/* The all-powerful Responsive Font Sizes mixin! */
+
+@mixin responsive-font-sizes($element, $multiplier:1) {
+  font-size: #{map-get($font-sizes--default, $element) * $multiplier} ;
+
+  @include screen-max-width($breakpoint-l) {
+    font-size: #{map-get($font-sizes--large-screen, $element) * $multiplier};
+  }
+
+  @include screen-max-width($breakpoint-m) {
+    font-size: #{map-get($font-sizes--medium-screen, $element) * $multiplier};
+  }
+
+  @include screen-max-width($breakpoint-s) {
+    font-size: #{map-get($font-sizes--small-screen, $element) * $multiplier};
+  }
+
+  @include screen-max-width($breakpoint-xs) {
+    font-size: #{map-get($font-sizes--x-small-screen, $element) * $multiplier};
+  }
+}
+
+/*********************************************************/
+/* Define Special Text Styles as Mixins */
+
+/* The vast majority of text on any given page will be normal weight & standard case, but there are a couple special styles used repeatedly throughout the Tnb web properties. They are defined here for consistency and ease of reuse. */
+
+// (BTW, I'm not calling these 'font-style' because that refers to italics, etc. in CSS)
+
+// Tiny Labels
+%tiny-label-text-style {
+  font-family: $default-font-family;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: $ms-3;
+  line-height: 1.5em;
+}
+
+// All-Caps Headings
+%all-caps-heading-text-style {
+  font-weight: $font-weight-regular;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  // font-size is determined by context
+}
+
+// Reset to normal weight and standard case after inheriting the above styles
+%normal-text-style {
+  font-weight: $font-weight-regular;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/*********************************************************/
+// Label Text (used in forms and for table headings)
+
+%label-text {
+  @extend %tiny-label-text-style;
+  color: $label-text-color;
+}
+
+%label-text-fallback-font {
+  font-family: $fallback-typeface;
+  font-weight: bold;
+  font-size: $ms-3 * $fallback-font-all-caps-label-font-size-multiplier;
+  letter-spacing: $fallback-font-all-caps-label-letter-spacing;
+}
+
+/*********************************************************/
+// Input Text (used in forms and for table content)
+
+$input-font-size: $ms0;
+$input-big-font-size: $ms1;
+
+%input-text {
+  font-family: $default-font-family;
+  font-size: $input-font-size;
+  font-weight: $font-weight-medium;
+  color: $input-text-color;
+}
+
+%input-text-fallback-font {
+  font-family: $fallback-typeface;
+  font-size: $input-font-size * $fallback-font-all-caps-label-font-size-multiplier;
+  letter-spacing: $fallback-font-letter-spacing;
+}
+
+%mod-big-input-text {
+  font-size: $input-big-font-size;
+  letter-spacing: $fallback-font-letter-spacing;
+}
+
+%mod-big-input-text-fallback-font {
+  font-size: $input-big-font-size * $fallback-font-all-caps-label-font-size-multiplier;
+}
+
+/*********************************************************/
+/* List Style Re-Reset */
+
+$default-list-indent: 1.65rem;
+$default-list-spacing: .65rem;
+
+%default-list-style {
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+}

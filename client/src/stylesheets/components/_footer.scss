@@ -1,0 +1,33 @@
+/************************************************/
+/* FOOTER */
+
+.footer {
+    color: $gray-dark;
+    
+    a {
+      color: $gray-dark;
+      font-size: 14px;
+      font-weight: 500;
+  
+      &:hover {
+        color: $gray-extra-dark;
+      }
+    }
+  
+    &.mod-dark {
+      color: #fff;
+  
+      a {
+        color: rgba(#fff, .4);
+  
+        &:hover {
+          color: rgba(#fff, 1);
+        }
+      }
+    }
+  }
+  
+  .footer--nav > li {
+    display: inline-block;
+    padding: 0 1rem;
+  }

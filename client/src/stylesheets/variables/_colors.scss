@@ -1,0 +1,47 @@
+/*********************************************************/
+/*Tnb Brand Colors */
+
+/* Purples */
+$purple: #4E4E69;
+$purple-dark: #323247;
+$purple-extra-dark: #1A1A2D;
+
+/* Blues */
+$blue: #5AB2E5;
+$blue-dark: #438FBA;
+$blue-light: lighten($blue, 35%);
+
+/* Grays */
+$gray-extra-extra-extra-light: #F8F9F9;
+$gray-extra-extra-light: #EEF2F5;
+$gray-extra-light: #E3EBEF;
+$gray-light: #CCD6DE;
+$gray: #A8BBC7;
+$gray-dark: #8297A4;
+$gray-extra-dark: #5D6E7A;
+
+/* Greens */
+$green: #61CC7A;
+$green-dark: #43A867;
+
+/* Yellows */
+$yellow-light: #FFFEF7;
+$yellow: #FADC59;
+$yellow-dark: #EDB126;
+$yellow-extra-dark: #C98D00;
+
+/* Reds */
+$red: #EF606E;
+$red-light: lighten($red, 32%);
+$red-dark: #C74646;
+
+
+/*********************************************************/
+/* Convenience variables */
+
+$line-color: $gray-light;
+$shadow-color: $gray-extra-dark;
+$label-text-color: darken($gray-dark, 7%);
+$default-text-color: $purple-dark;
+$input-text-color: $default-text-color;
+$highlight-color: $green;
