@@ -12,7 +12,7 @@
     "ag-grid": "^18.1.2",
     "ag-grid-react": "^20.2.0",
     "aphrodite": "^2.2.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "concurrently": "^4.1.0",
     "electron": "^4.0.1",
